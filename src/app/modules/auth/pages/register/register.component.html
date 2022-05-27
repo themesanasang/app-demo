@@ -1,0 +1,72 @@
+<h2 class="text-2xl font-semibold text-center text-gray-700">สร้างบัญชี</h2>
+
+<div *ngIf="showError" class="text-sm text-red-400 text-center p-4">ไม่สามารถสร้างบัญชีใหม่ได้ กรุณาลองใหม่อีกครั้ง</div>
+
+<form [formGroup]="checkForm" (ngSubmit)="onSubmit()">
+    <div class="mt-4">
+        <label class="block mb-2 text-sm font-medium text-gray-600" for="fullname">ชื่อ-สกุล</label>
+        <input [ngClass]="{ 'border-red-400': submitted && checkForm.controls['fullname'].errors }" name="fullname" formControlName="fullname" id="fullname" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text">
+    </div>
+
+    <div class="mt-4">
+        <label class="block mb-2 text-sm font-medium text-gray-600" for="username">ชื่อผู้ใช้งาน</label>
+        <input [ngClass]="{ 'border-red-400': submitted && checkForm.controls['username'].errors }" name="username" formControlName="username" id="username" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text">
+    </div>
+
+    <div class="mt-4">
+        <div class="flex justify-between">
+            <label class="block mb-2 text-sm font-medium text-gray-600" for="password">รหัสผ่าน</label>
+            <p class="text-xs text-gray-500 ">(อย่างน้อย 6 ตัวอักษร)</p>
+        </div>
+
+        <input  [ngClass]="{ 'border-red-400': submitted && checkForm.controls['password'].errors }" name="password" formControlName="password" id="password" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="password">
+    </div>
+
+    <div class="mt-4">
+        <div class="flex justify-between">
+            <label class="block mb-2 text-sm font-medium text-gray-600" for="password">ยืนยัน รหัสผ่าน</label>
+        </div>
+
+        <input [ngClass]="{ 'border-red-400': submitted && checkForm.controls['confirmpassword'].errors }" name="confirmpassword" formControlName="confirmpassword" id="confirmpassword" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="password">
+        
+        <div class="text-xs py-2"  *ngIf="submitted && checkForm.controls['confirmpassword'].errors">
+            <div  *ngIf="checkForm.controls['confirmpassword'].errors['matching']" [ngClass]="{ 'text-red-400': submitted && checkForm.controls['confirmpassword'].errors }">
+                Confirm Password does not match
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-8">
+        <button class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+            สมัครสมาชิก
+        </button>
+    </div>
+</form>
+
+<div class="flex items-center justify-between mt-4">
+    <span class="w-1/5 border-b md:w-1/4"></span>
+
+    <a href="/" class="text-xs text-gray-500 uppercase hover:underline">หน้าหลัก</a>
+    <a href="login" class="text-xs text-gray-500 uppercase hover:underline">เข้าสู่ระบบ</a>
+    
+    <span class="w-1/5 border-b md:w-1/4"></span>
+</div>
+
+
+<div
+  class="w-52 h-fit shadow-xl fixed top-14 right-14 bg-white rounded-xl flex"
+  [@showToasterAnimation]="showToaster ? 'show' : 'hide'">
+  <div class="h-min-full w-2 bg-green-600 rounded-l-xl"></div>
+  <div class="flex w-full h-fit flex-row p-3 justify-center">
+    <div class="h-min-full flex flex-col justify-center mr-3">
+      <fa-icon [icon]="faCheckCircle" class="text-4xl text-green-600"></fa-icon>
+    </div>
+    <div class="">
+      <p class="font-bold">สร้างบัญชีสำเร็จ</p>
+      <p class="text-sm">โปรดเข้าสู่ระบบ</p>
+    </div>
+  </div>
+  <div class="absolute pl-2 pr-2 h-1  w-full bottom-0 left-0">
+    <div class="bg-green-600 h-full" [style.width]="progress"></div>
+  </div>
+</div>

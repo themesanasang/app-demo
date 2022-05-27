@@ -1,0 +1,75 @@
+<section class="bg-white px-6">
+    <div class="max-w-xl mx-auto">
+        <h1 class="text-2xl font-semibold text-gray-800 capitalize lg:text-3xl">เพิ่มประวัติใหม่</h1>
+        
+        <div class="max-w-xl mt-5 p-6 mx-auto bg-white border border-r-gray-200 rounded-xl">
+            <form [formGroup]="checkForm" (ngSubmit)="onSubmit()">
+                <div class="mt-4">
+                    <label class="block mb-2 text-sm font-medium text-gray-600" for="hn">HN</label>
+                    <input [ngClass]="{ 'border-red-400': submitted && checkForm.controls['hn'].errors }" name="hn" formControlName="hn" id="hn" class="block w-2/4 px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text">
+                </div>
+
+                <div class="mt-4">
+                    <label class="block mb-2 text-sm font-medium text-gray-600" for="cid">รหัสบัตรประชาชน</label>
+                    <input [ngClass]="{ 'border-red-400': submitted && checkForm.controls['cid'].errors }" name="cid" formControlName="cid" id="cid" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text">
+                </div>
+
+                <div class="mt-4">
+                    <label class="block mb-2 text-sm font-medium text-gray-600" for="fullname">ชื่อ-สกุล</label>
+                    <input [ngClass]="{ 'border-red-400': submitted && checkForm.controls['fullname'].errors }" name="fullname" formControlName="fullname" id="fullname" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text">
+                </div>
+
+                <div class="mt-4">
+                    <label class="block mb-2 text-sm font-medium text-gray-600" for="sex">เพศ</label>
+                    <select name="sex"  formControlName="sex" id="sex" class="block w-2/4 px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300">
+                        <option value="1">ชาย</option>
+                        <option value="2">หญิง</option>
+                    </select>
+                </div>
+
+                <div class="flex justify-end mt-6">
+                    <a href="patient" class="block px-5 py-2 mt-4 mr-4 font-medium leading-5 text-center text-slate-500 capitalize bg-slate-50 shadow-sm  rounded lg:mt-0 hover:bg-slate-100 lg:w-auto">กลับ</a>
+                    <button class="block px-5 py-2 mt-4 font-medium leading-5 text-center text-white capitalize bg-blue-600 shadow-sm shadow-blue-600/50 rounded lg:mt-0 hover:bg-blue-700 lg:w-auto">บันทึก</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- modal success -->
+<div
+  class="w-52 h-fit shadow-xl fixed top-14 right-14 bg-white rounded-xl flex z-20"
+  [@showToasterAnimation]="showToaster ? 'show' : 'hide'">
+  <div class="h-min-full w-2 bg-green-600 rounded-l-xl"></div>
+  <div class="flex w-full h-fit flex-row p-3 justify-center">
+    <div class="h-min-full flex flex-col justify-center mr-3">
+      <fa-icon [icon]="faCheckCircle" class="text-4xl text-green-600"></fa-icon>
+    </div>
+    <div class="">
+      <p class="font-bold">{{ textSuccess }}</p>
+    </div>
+  </div>
+  <div class="absolute pl-2 pr-2 h-1  w-full bottom-0 left-0">
+    <div class="bg-green-600 h-full" [style.width]="progress"></div>
+  </div>
+</div>
+
+<!-- modal error -->
+<div
+  class="w-52 h-fit shadow-xl fixed top-14 right-14 bg-white rounded-xl flex z-20"
+  [@showToasterAnimation]="showToasterError ? 'show' : 'hide'">
+  <div class="h-min-full w-2 bg-red-600 rounded-l-xl"></div>
+  <div class="flex w-full h-fit flex-row p-3 justify-center">
+    <div class="h-min-full flex flex-col justify-center mr-3">
+      <fa-icon [icon]="faXmarkCircle" class="text-4xl text-red-600"></fa-icon>
+    </div>
+    <div class="">
+      <p class="font-bold">{{ textError }}</p>
+    </div>
+  </div>
+  <div class="absolute pl-2 pr-2 h-1  w-full bottom-0 left-0">
+    <div class="bg-red-600 h-full" [style.width]="progress"></div>
+  </div>
+</div>
